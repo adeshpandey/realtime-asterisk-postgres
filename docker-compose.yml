@@ -4,7 +4,7 @@ services:
     image: adminer
     restart: always
     ports:
-      - 8080:8080
+      - 8089:8080
   postgres:
     image: bitnami/postgresql:12.5.0
     environment:
@@ -14,6 +14,32 @@ services:
     ports:
       - "15432:5432"
     restart: unless-stopped
+  
+  frontend:
+    build: ./frontend
+    volumes:
+      - ./frontend:/app
+    environment:
+      REACT_APP_OKTA_HOST_NAME: $OKTA_HOST_NAME
+      REACT_APP_OKTA_FRONTEND_CLIENT_ID: $OKTA_FRONTEND_CLIENT_ID
+    ports:
+      - 3000:3000
+    
+  backend:
+    build: ./backend-api
+    environment:
+      OKTA_HOST_NAME: $OKTA_HOST_NAME
+      OKTA_BACKEND_CLIENT_ID: $OKTA_BACKEND_CLIENT_ID
+      OKTA_BACKEND_CLIENT_SECRET: $OKTA_BACKEND_CLIENT_SECRET
+      POSTGRES_HOST: $POSTGRESQL_HOST 
+      POSTGRES_PORT: $POSTGRESQL_PORT 
+      POSTGRES_DATABASE: $POSTGRESQL_DATABASE
+      POSTGRES_USERNAME: $POSTGRESQL_USERNAME
+      POSTGRES_PASSWORD: $POSTGRESQL_PASSWORD
+      LOCAL_DEV_PORT: 8080
+    ports:
+      - 8080:8080
+
   asterisk:
     build: .
     ports:

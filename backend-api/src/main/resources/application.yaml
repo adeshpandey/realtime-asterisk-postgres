@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://${POSTGRES_HOST:127.0.0.1}:${POSTGRES_PORT:15432}/${POSTGRES_DATABASE:asterisk}
+    username: ${POSTGRES_USER:postgres-user}
+    password: ${POSTGRES_PASSWORD:postgres-pass}
+    tomcat:
+      validation-query: SELECT 1
+      test-while-idle: true
+    hikari:
+      schema: ${POSTGRES_SCHEMA:public}
+  jpa:
+    hibernate.ddl-auto: none
+    generate-ddl: false
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        types:
+          print:
+            banner: false
+server:
+  max-http-header-size: 256KB
+  port: ${LOCAL_DEV_PORT:8080}
+  servlet:
+    context-path: /api/v1/
+okta:
+  oauth2:
+    issuer: https://${OKTA_HOST_NAME}.okta.com/oauth2/default
+    client-id: ${OKTA_BACKEND_CLIENT_ID}
+    client-secret: ${OKTA_BACKEND_CLIENT_SECRET}
+    scopes: openid
+    roles-claim: groups
