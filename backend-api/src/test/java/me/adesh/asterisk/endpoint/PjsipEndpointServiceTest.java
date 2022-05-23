@@ -49,4 +49,11 @@ public class PjsipEndpointServiceTest {
     assertThat(pjSipEndpoints.get(0).getId()).isSameAs(pjSipEndpoint.getId());
   }
 
+  @Test
+  void when_delete_by_id_its_delete_called() {
+    String id = "123";
+    pjsipEndpointService.deleteById(id);
+    Mockito.verify(pjSipEndpointRepository).deleteById(Mockito.any());
+  }
+
 }

@@ -17,7 +17,7 @@ const EditForm = ({ item, onCancel, onEdit }) => {
     const [form] = Form.useForm();
 
     return (
-        <Modal title="Edit Auth"
+        <Modal title="Edit Endpoint"
             visible={item ? true : false}
             onOk={() => {
                 form

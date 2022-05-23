@@ -10,18 +10,24 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class PjsipEndpointService {
+
   private final PjSipEndpointRepository pjSipEndpointRepository;
 
-  public PjSipEndpoint save(EndpointRequest endpointRequest){
+  public PjSipEndpoint save(EndpointRequest endpointRequest) {
     PjSipEndpoint pjSipEndpoint = PjSipEndpoint.builder()
-            .id(endpointRequest.getId())
-                .aors(endpointRequest.getAors())
-                    .auth(endpointRequest.getAuth())
-                        .build();
+        .id(endpointRequest.getId())
+        .aors(endpointRequest.getAors())
+        .auth(endpointRequest.getAuth())
+        .build();
     return pjSipEndpointRepository.save(pjSipEndpoint);
   }
 
   public List<PjSipEndpoint> findAll() {
     return pjSipEndpointRepository.findAll();
+  }
+
+  public String deleteById(String id) {
+    pjSipEndpointRepository.deleteById(id);
+    return "SUCCESS";
   }
 }

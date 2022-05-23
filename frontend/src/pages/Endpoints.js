@@ -15,24 +15,24 @@ const Endpoints = () => {
         deleteEndpoint(id, authState.accessToken.accessToken).then(res => {
             if (res.status == 200) {
                 notification.open({
-                    message: 'Aor',
+                    message: 'Endpoint',
                     type: "success",
                     description:
-                        'AOR deleted successfully.'
+                        'Endpoint deleted successfully.'
                 });
                 setRefreshList(!refreshList)
             }
             else {
                 notification.open({
-                    message: 'Aor',
+                    message: 'Endpoint',
                     type: "error",
                     description:
-                        'Failed to delete AOR.',
+                        'Failed to delete Endpoint.',
                 });
             }
         }).catch(err => {
             notification.open({
-                message: 'Aor',
+                message: 'Endpoint',
                 description:
                     'Something went wrong.',
             });
@@ -42,20 +42,20 @@ const Endpoints = () => {
     const onAdd = (response) => {
         if (response.status == 200) {
             notification.open({
-                message: 'Aor',
+                message: 'Endpoint',
                 type: "success",
                 description:
-                    'AOR added successfully.'
+                    'Endpoint added successfully.'
             });
             setRefreshList(!refreshList)
             setShowForm(false)
         }
         else {
             notification.open({
-                message: 'Aor',
+                message: 'Endpoint',
                 type: "error",
                 description:
-                    'Can\'t add AOR.'
+                    'Can\'t add Endpoint.'
             });
         }
     }

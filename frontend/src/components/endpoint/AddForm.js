@@ -17,7 +17,7 @@ const AddForm = ({ showForm, onCancel, onAdd }) => {
     const [form] = Form.useForm();
 
     return (
-        <Modal title="Add Auth"
+        <Modal title="Add Endpoint"
             visible={showForm}
             onOk={() => {
                 form

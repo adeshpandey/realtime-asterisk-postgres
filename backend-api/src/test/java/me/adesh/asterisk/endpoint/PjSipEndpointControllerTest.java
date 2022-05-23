@@ -1,6 +1,7 @@
 package me.adesh.asterisk.endpoint;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -8,16 +9,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Collections;
-import javax.websocket.Endpoint;
 import me.adesh.asterisk.controller.PjsipEndpointController;
 import me.adesh.asterisk.converter.PjsipEndpointConverter;
-import me.adesh.asterisk.dto.AorRequest;
 import me.adesh.asterisk.dto.EndpointRequest;
-import me.adesh.asterisk.dto.PjSipAorDto;
 import me.adesh.asterisk.dto.PjsipEndpointDto;
-import me.adesh.asterisk.model.PjSipAor;
 import me.adesh.asterisk.model.PjSipEndpoint;
-import me.adesh.asterisk.model.enums.YesNo;
 import me.adesh.asterisk.service.PjsipEndpointService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -110,7 +106,8 @@ public class PjSipEndpointControllerTest {
         .aors(pjSipEndpoint.getAors())
         .build();
 
-    Mockito.when(pjsipEndpointService.findAll()).thenReturn(Collections.singletonList(pjSipEndpoint));
+    Mockito.when(pjsipEndpointService.findAll())
+        .thenReturn(Collections.singletonList(pjSipEndpoint));
     Mockito.when(pjsipEndpointConverter.entityToDto(Collections.singletonList(pjSipEndpoint)))
         .thenReturn(Collections.singletonList(pjsipEndpointDto));
 
@@ -140,8 +137,8 @@ public class PjSipEndpointControllerTest {
         .aors(pjSipEndpoint.getAors())
         .build();
 
-
-    Mockito.when(pjsipEndpointService.findAll()).thenReturn(Collections.singletonList(pjSipEndpoint));
+    Mockito.when(pjsipEndpointService.findAll())
+        .thenReturn(Collections.singletonList(pjSipEndpoint));
     Mockito.when(pjsipEndpointConverter.entityToDto(Collections.singletonList(pjSipEndpoint)))
         .thenReturn(Collections.singletonList(pjsipEndpointDto));
 
@@ -152,5 +149,30 @@ public class PjSipEndpointControllerTest {
         .andExpect(status().isOk())
         .andExpect(jsonPath("$[0].id").value(endpointRequest.getId()));
 
+  }
+
+  @Test
+  void when_delete_endpoint_it_should_return_401_if_not_auth() throws Exception {
+    String id = "123";
+    Mockito.when(pjsipEndpointService.deleteById(id))
+        .thenReturn("SUCCESS");
+
+    mockMvc.perform(
+            delete("/endpoints/" + id)
+        )
+        .andExpect(status().is4xxClientError());
+  }
+
+  @Test
+  void when_delete_existing_endpoint_it_should_return_success() throws Exception {
+    String id = "123";
+    Mockito.when(pjsipEndpointService.deleteById(id))
+        .thenReturn("SUCCESS");
+
+    mockMvc.perform(
+            delete("/endpoints/" + id)
+                .with(jwt())
+        )
+        .andExpect(status().isOk());
   }
 }
