@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
-import { getAors } from '../services/aor';
+import { getAors } from '../../services/aor';
 import { Button, Popconfirm, Table, Space } from 'antd';
 import EditForm from './EditForm';
 

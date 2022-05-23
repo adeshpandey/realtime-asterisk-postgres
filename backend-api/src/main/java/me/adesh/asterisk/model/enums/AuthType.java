@@ -1,12 +1,13 @@
-package me.adesh.asterisk.model;
+package me.adesh.asterisk.model.enums;
 
-public enum YesNo {
-  yes("yes"),
-  no("no");
+public enum AuthType {
+  md5("md5"),
+  userpass("userpass"),
+  google_oauth("google_oauth");
 
   private final String name;
 
-  YesNo(String name) {
+  AuthType(String name) {
     this.name = name;
   }
 

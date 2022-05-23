@@ -4,7 +4,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import me.adesh.asterisk.dto.AorRequest;
 import me.adesh.asterisk.model.PjSipAor;
-import me.adesh.asterisk.model.YesNo;
+import me.adesh.asterisk.model.enums.YesNo;
 import me.adesh.asterisk.repository.PjSipAorRepository;
 import org.springframework.stereotype.Service;
 

@@ -9,6 +9,8 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import me.adesh.asterisk.model.enums.YesNo;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
@@ -17,13 +19,12 @@ import org.hibernate.annotations.TypeDefs;
 @Builder
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "ps_aors")
-@TypeDefs({ @TypeDef(name = "yesno_values", typeClass = PostgresEnumType.class), @TypeDef(name = "ast_bool_values", typeClass = PostgresEnumType.class)})
+@TypeDefs({@TypeDef(name = "yesno_values", typeClass = PostgresEnumType.class),
+    @TypeDef(name = "ast_bool_values", typeClass = PostgresEnumType.class)})
 public class PjSipAor {
 
-  public PjSipAor() {
-
-  }
 
   @Id
   @Column(name = "id", length = 40)

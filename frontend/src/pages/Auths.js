@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
-import { deleteAor } from '../services/aor';
 import { Button, notification, Affix, Modal } from 'antd';
-import AorList from '../components/aor/AorList';
 import { PlusOutlined } from '@ant-design/icons';
-import AddForm from '../components/aor/AddForm';
+import { deleteAuth } from '../services/auths';
+import AuthList from '../components/auth/AuthList';
+import AddForm from '../components/auth/AddForm';
 
 const Protected = () => {
     const { authState } = useOktaAuth()
@@ -12,22 +12,22 @@ const Protected = () => {
     const [refreshList, setRefreshList] = useState(false);
 
     function onDelete(id) {
-        deleteAor(id, authState.accessToken.accessToken).then(res => {
+        deleteAuth(id, authState.accessToken.accessToken).then(res => {
             if (res.status == 200) {
                 notification.open({
-                    message: 'Aor',
+                    message: 'Auth',
                     type: "success",
                     description:
-                        'AOR deleted successfully.'
+                        'Auth deleted successfully.'
                 });
                 setRefreshList(!refreshList)
             }
             else {
                 notification.open({
-                    message: 'Aor',
+                    message: 'Auth',
                     type: "error",
                     description:
-                        'Failed to delete AOR.',
+                        'Failed to delete Auth.',
                 });
             }
         }).catch(err => {
@@ -42,27 +42,27 @@ const Protected = () => {
     const onAdd = (response) => {
         if (response.status == 200) {
             notification.open({
-                message: 'Aor',
+                message: 'Auth',
                 type: "success",
                 description:
-                    'AOR added successfully.'
+                    'Auth added successfully.'
             });
             setRefreshList(!refreshList)
             setShowForm(false)
         }
         else {
             notification.open({
-                message: 'Aor',
+                message: 'Auth',
                 type: "error",
                 description:
-                    'Can\'t add AOR.'
+                    'Can\'t add Auth.'
             });
         }
     }
 
 
     return (<div>
-        <AorList refresh={refreshList} onDelete={onDelete} />
+        <AuthList refresh={refreshList} onDelete={onDelete} />
         <Affix style={{ position: 'fixed', bottom: 10, right: 10 }}>
             <Button size="large" shape='circle' type="primary" onClick={() => setShowForm(true)}>
                 <PlusOutlined />

@@ -1,10 +1,11 @@
 import React from 'react';
-import { Form, Input, Button, Checkbox, Modal } from 'antd';
-import { addAor } from '../services/aor';
+import { Form, Input, Modal, Select } from 'antd';
 import { useOktaAuth } from '@okta/okta-react';
+import { updateAuth } from '../../services/auths';
 
-const AddForm = ({ showForm, onCancel, onAdd }) => {
+const EditForm = ({ item, onCancel, onEdit }) => {
     const { authState } = useOktaAuth()
+    const {Option} = Select;
 
     const onFinish = (values) => {
         console.log('Success:', values);
@@ -17,8 +18,8 @@ const AddForm = ({ showForm, onCancel, onAdd }) => {
     const [form] = Form.useForm();
 
     return (
-        <Modal title="Add AOR"
-            visible={showForm}
+        <Modal title="Edit Auth"
+            visible={item ? true : false}
             onOk={() => {
                 form
                     .validateFields()
@@ -31,8 +32,8 @@ const AddForm = ({ showForm, onCancel, onAdd }) => {
                         if (values.removeUnavailable != undefined) {
                             values.removeUnavailable = values.removeUnavailable ? 'yes' : 'no'
                         }
-                        addAor(values, authState.accessToken.accessToken).then(res => onAdd(res)).catch(err => onAdd(err.response))
-                        
+                        updateAuth(item.id, values, authState.accessToken.accessToken).then(res => onEdit(res)).catch(err => onEdit(err.response))
+
                     })
                     .catch(info => {
                         console.log('Validate Failed:', info);
@@ -44,7 +45,7 @@ const AddForm = ({ showForm, onCancel, onAdd }) => {
                 name="basic"
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}
-                initialValues={{ remember: true }}
+                initialValues={item}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
@@ -52,31 +53,37 @@ const AddForm = ({ showForm, onCancel, onAdd }) => {
                 <Form.Item
                     label="Id"
                     name="id"
-                    rules={[{ required: true, message: 'Please input aor ID!' }]}
+                    rules={[{ required: true, message: 'Please input auth ID!' }]}
                 >
                     <Input />
                 </Form.Item>
 
                 <Form.Item
-                    label="Contact"
-                    name="contact"
+                    label="Auth Type"
+                    name="authType"
                 >
-                    <Input defaultValue={null} />
+                    <Select
+                        placeholder="Select auth type"
+                        allowClear
+                    >
+                        <Option value="userpass">Userpass</Option>
+                        <Option value="md5">MD5</Option>
+                        <Option value="google_oauth">Google Oauth</Option>
+                    </Select>
                 </Form.Item>
 
                 <Form.Item
-                    label="Max Contact"
-                    name="maxContacts"
+                    label="Username"
+                    name="username"
                 >
-                    <Input defaultValue={1} />
+                    <Input />
                 </Form.Item>
 
-                <Form.Item name="removeExisting" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-                    <Checkbox>Remove Existing</Checkbox>
-                </Form.Item>
-
-                <Form.Item name="removeUnavailable" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-                    <Checkbox>Remove Unavailable</Checkbox>
+                <Form.Item
+                    label="Password"
+                    name="password"
+                >
+                    <Input />
                 </Form.Item>
 
             </Form>
@@ -84,4 +91,4 @@ const AddForm = ({ showForm, onCancel, onAdd }) => {
     );
 };
 
-export default AddForm;
+export default EditForm;

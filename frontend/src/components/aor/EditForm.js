@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Input, Checkbox, Modal } from 'antd';
-import { addAor, updateAor } from '../services/aor';
+import { updateAor } from '../../services/aor';
 import { useOktaAuth } from '@okta/okta-react';
 
 const EditForm = ({item, onCancel, onEdit }) => {
