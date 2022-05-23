@@ -1,8 +1,8 @@
 package me.adesh.asterisk.dto;
 
-import javax.persistence.Column;
 import lombok.Builder;
 import lombok.Data;
+import me.adesh.asterisk.model.YesNo;
 
 @Data
 @Builder
@@ -12,7 +12,7 @@ public class PjSipAorDto {
 
   private String contact;
 
-  private Boolean removeExisting;
+  private YesNo removeExisting;
 
   private Integer defaultExpiration;
 
@@ -24,17 +24,17 @@ public class PjSipAorDto {
 
   private Integer qualifyFrequency;
 
-  private Boolean authenticateQualify;
+  private YesNo authenticateQualify;
 
   private Integer maximumExpiration;
 
   private String outboundProxy;
 
-  private Boolean supportPath;
+  private YesNo supportPath;
 
   private Double qualifyTimeout;
 
   private String voicemailExtension;
 
-  private Boolean removeUnavailable;
+  private YesNo removeUnavailable;
 }

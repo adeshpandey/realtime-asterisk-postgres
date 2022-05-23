@@ -1,8 +1,8 @@
 package me.adesh.asterisk.model;
 
 public enum YesNo {
-  YES("yes"),
-  NO("no");
+  yes("yes"),
+  no("no");
 
   private final String name;
 

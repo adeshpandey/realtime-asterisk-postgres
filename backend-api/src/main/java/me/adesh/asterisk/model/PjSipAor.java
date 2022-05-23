@@ -2,18 +2,23 @@ package me.adesh.asterisk.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.hibernate.type.YesNoType;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 
 @Data
 @Builder
 @Entity
 @AllArgsConstructor
 @Table(name = "ps_aors")
+@TypeDefs({ @TypeDef(name = "yesno_values", typeClass = PostgresEnumType.class), @TypeDef(name = "ast_bool_values", typeClass = PostgresEnumType.class)})
 public class PjSipAor {
 
   public PjSipAor() {
@@ -40,22 +45,27 @@ public class PjSipAor {
   private Integer minimumExpiration;
 
   @Column(name = "remove_existing", nullable = true)
-  private Boolean removeExisting;
+  @Enumerated(EnumType.STRING)
+  @Type(type = "yesno_values")
+  private YesNo removeExisting;
 
   @Column(name = "qualify_frequency", nullable = true)
   private Integer qualifyFrequency;
 
-  @Column(name = "authenticate_qualify", nullable = true)
-  private Boolean authenticateQualify;
+  @Column(name = "authenticate_qualify")
+  @Enumerated(EnumType.STRING)
+  @Type(type = "yesno_values")
+  private YesNo authenticateQualify;
 
   @Column(name = "maximum_expiration", nullable = true)
-  private Integer maximumExpiration;
+  private Integer maximumExpiration = 300;
 
   @Column(name = "outbound_proxy", length = 40, nullable = true)
   private String outboundProxy;
 
   @Column(name = "support_path", nullable = true)
-  private Boolean supportPath;
+  @Type(type = "yesno_values")
+  private YesNo supportPath;
 
   @Column(name = "qualify_timeout", nullable = true)
   private Double qualifyTimeout;
@@ -64,7 +74,9 @@ public class PjSipAor {
   private String voicemailExtension;
 
   @Column(name = "remove_unavailable", nullable = true)
-  private Boolean removeUnavailable;
+  @Enumerated(EnumType.STRING)
+  @Type(type = "ast_bool_values")
+  private YesNo removeUnavailable;
 
 
 }

@@ -11,3 +11,17 @@ export function deleteAor(id, token){
         Authorization: `Bearer ${token}`
     }})
 }
+
+export function addAor(data, token){
+    return api.post(`aors`, data, {headers: {
+        'content-type': 'application/json',
+        Authorization: `Bearer ${token}`
+    }})
+}
+
+export function updateAor(id, data, token){
+    return api.put(`aors/${id}`, data, {headers: {
+        'content-type': 'application/json',
+        Authorization: `Bearer ${token}`
+    }})
+}

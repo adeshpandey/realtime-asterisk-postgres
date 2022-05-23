@@ -16,6 +16,8 @@ public class PjsipAorConverter {
     return PjSipAorDto.builder()
         .contact(entity.getContact())
         .removeExisting(entity.getRemoveExisting())
+        .removeUnavailable(entity.getRemoveUnavailable())
+        .maxContacts(entity.getMaxContacts())
         .id(entity.getId())
         .build();
   }

@@ -27,6 +27,8 @@ services:
     
   backend:
     build: ./backend-api
+    volumes:
+      - ./backend-api/target/asterisk-backend-api-0.0.1-SNAPSHOT.jar:/app/asterisk-backend-api.jar
     environment:
       OKTA_HOST_NAME: $OKTA_HOST_NAME
       OKTA_BACKEND_CLIENT_ID: $OKTA_BACKEND_CLIENT_ID
