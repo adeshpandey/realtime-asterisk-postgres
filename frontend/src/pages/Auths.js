@@ -6,7 +6,7 @@ import { deleteAuth } from '../services/auths';
 import AuthList from '../components/auth/AuthList';
 import AddForm from '../components/auth/AddForm';
 
-const Protected = () => {
+const Auths = () => {
     const { authState } = useOktaAuth()
     const [showForm, setShowForm] = useState(false);
     const [refreshList, setRefreshList] = useState(false);
@@ -71,4 +71,4 @@ const Protected = () => {
         <AddForm showForm={showForm} onAdd={onAdd} onCancel={status => setShowForm(status)} />
     </div>)
 }
-export default Protected;
+export default Auths;

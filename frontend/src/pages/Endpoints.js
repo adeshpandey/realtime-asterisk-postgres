@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
-import { deleteAor } from '../services/aor';
-import { Button, notification, Affix, Modal } from 'antd';
-import AorList from '../components/aor/AorList';
+import { deleteEndpoint } from '../services/endpoint';
+import { Button, notification, Affix } from 'antd';
+import EndpointList from '../components/endpoint/EndpointList';
 import { PlusOutlined } from '@ant-design/icons';
-import AddForm from '../components/aor/AddForm';
+import AddForm from '../components/endpoint/AddForm';
 
-const Aors = () => {
+const Endpoints = () => {
     const { authState } = useOktaAuth()
     const [showForm, setShowForm] = useState(false);
     const [refreshList, setRefreshList] = useState(false);
 
     function onDelete(id) {
-        deleteAor(id, authState.accessToken.accessToken).then(res => {
+        deleteEndpoint(id, authState.accessToken.accessToken).then(res => {
             if (res.status == 200) {
                 notification.open({
                     message: 'Aor',
@@ -62,7 +62,7 @@ const Aors = () => {
 
 
     return (<div>
-        <AorList refresh={refreshList} onDelete={onDelete} />
+        <EndpointList refresh={refreshList} onDelete={onDelete} />
         <Affix style={{ position: 'fixed', bottom: 10, right: 10 }}>
             <Button size="large" shape='circle' type="primary" onClick={() => setShowForm(true)}>
                 <PlusOutlined />
@@ -71,4 +71,4 @@ const Aors = () => {
         <AddForm showForm={showForm} onAdd={onAdd} onCancel={status => setShowForm(status)} />
     </div>)
 }
-export default Aors;
+export default Endpoints;

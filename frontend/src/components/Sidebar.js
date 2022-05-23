@@ -25,12 +25,12 @@ export default function({collapsed}){
             {
               key: '2',
               icon: <KeyOutlined />,
-              label: 'Auths',
+              label: (<Link to="/auths">Auths</Link>)
             },
             {
               key: '3',
               icon: <UserOutlined />,
-              label: 'Endpoints',
+              label: (<Link to="/endpoints">Endpoints</Link>)
             },
           ]}
         />

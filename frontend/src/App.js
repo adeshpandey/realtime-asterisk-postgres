@@ -8,6 +8,7 @@ import { useHistory, BrowserRouter as Router, Route, withRouter, Switch } from "
 import Home from './Home';
 import Aors from './pages/Aors';
 import Auths from './pages/Auths';
+import Endpoints from './pages/Endpoints';
 import { useState } from 'react';
 import { Layout } from 'antd';
 import Sidebar from './components/Sidebar';
@@ -34,6 +35,7 @@ function App() {
       <Route path='/' exact={true} component={Home} />
       <SecureRoute path='/aors' component={Aors} />
       <SecureRoute path='/auths' component={Auths} />
+      <SecureRoute path='/endpoints' component={Endpoints} />
       <Route path='/login/callback' component={LoginCallback} />
     </Security>
   );

@@ -34,19 +34,19 @@ import org.hibernate.annotations.TypeDefs;
 @NoArgsConstructor
 @Table(name = "ps_endpoints")
 @TypeDefs({
-    @TypeDef(name = "yesno_values", typeClass = YesNo.class),
-    @TypeDef(name = "pjsip_connected_line_method_values", typeClass = ConnectedLineMethod.class),
-    @TypeDef(name = "pjsip_direct_media_glare_mitigation_values", typeClass = DirectMediaGlareMitigation.class),
-    @TypeDef(name = "pjsip_dtmf_mode_values_v3", typeClass = DtmfMode.class),
-    @TypeDef(name = "pjsip_timer_values", typeClass = PjsipTimer.class),
-    @TypeDef(name = "pjsip_cid_privacy_values", typeClass = CidPrivacy.class),
-    @TypeDef(name = "pjsip_100rel_values", typeClass = PjSip100Rel.class),
-    @TypeDef(name = "pjsip_media_encryption_values", typeClass = MediaEncryption.class),
-    @TypeDef(name = "pjsip_t38udptl_ec_values", typeClass = T38UdpTl.class),
-    @TypeDef(name = "pjsip_redirect_method_values", typeClass = RedirectMethod.class),
-    @TypeDef(name = "ast_bool_values", typeClass = AstBool.class),
-    @TypeDef(name = "sha_hash_values", typeClass = ShaHash.class),
-    @TypeDef(name = "pjsip_dtls_setup_values", typeClass = DtlsSetup.class)
+    @TypeDef(name = "yesno_values", typeClass = PostgresEnumType.class),
+    @TypeDef(name = "pjsip_connected_line_method_values", typeClass = PostgresEnumType.class),
+    @TypeDef(name = "pjsip_direct_media_glare_mitigation_values", typeClass = PostgresEnumType.class),
+    @TypeDef(name = "pjsip_dtmf_mode_values_v3", typeClass = PostgresEnumType.class),
+    @TypeDef(name = "pjsip_timer_values", typeClass = PostgresEnumType.class),
+    @TypeDef(name = "pjsip_cid_privacy_values", typeClass = PostgresEnumType.class),
+    @TypeDef(name = "pjsip_100rel_values", typeClass = PostgresEnumType.class),
+    @TypeDef(name = "pjsip_media_encryption_values", typeClass = PostgresEnumType.class),
+    @TypeDef(name = "pjsip_t38udptl_ec_values", typeClass = PostgresEnumType.class),
+    @TypeDef(name = "pjsip_redirect_method_values", typeClass = PostgresEnumType.class),
+    @TypeDef(name = "ast_bool_values", typeClass = PostgresEnumType.class),
+    @TypeDef(name = "sha_hash_values", typeClass = PostgresEnumType.class),
+    @TypeDef(name = "pjsip_dtls_setup_values", typeClass = PostgresEnumType.class)
 })
 public class PjSipEndpoint {
 
@@ -167,7 +167,7 @@ public class PjSipEndpoint {
   @Column(name = "callerid_tag")
   private String calleridTag;
 
-  @Column(name = "100rel")
+  @Column(name = "`100rel`")
   @Enumerated(EnumType.STRING)
   @Type(type = "pjsip_100rel_values")
   private PjSip100Rel rel;
@@ -410,7 +410,9 @@ public class PjSipEndpoint {
   private String voicemailExtension;
 
   @Column(name = "mwi_subscribe_replaces_unsolicited")
-  private String mwiSubscribeReplacesUnsolicited;
+  @Enumerated(EnumType.STRING)
+  @Type(type = "ast_bool_values")
+  private AstBool mwiSubscribeReplacesUnsolicited;
 
   private String deny;
 

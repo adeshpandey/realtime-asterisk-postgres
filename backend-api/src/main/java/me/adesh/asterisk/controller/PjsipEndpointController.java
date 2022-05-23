@@ -35,8 +35,8 @@ public class PjsipEndpointController {
 
   @GetMapping(path = "/endpoints")
   public ResponseEntity<List<PjsipEndpointDto>> get() {
-    List<PjSipEndpoint> pjSipAors = pjsipEndpointService.findAll();
-    return new ResponseEntity<>(pjsipEndpointConverter.entityToDto(pjSipAors), HttpStatus.OK);
+    List<PjSipEndpoint> pjSipEndpoints = pjsipEndpointService.findAll();
+    return new ResponseEntity<>(pjsipEndpointConverter.entityToDto(pjSipEndpoints), HttpStatus.OK);
   }
 
 //  @DeleteMapping(path="/aors/{id}")
