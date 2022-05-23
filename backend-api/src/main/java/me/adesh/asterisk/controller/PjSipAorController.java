@@ -25,9 +25,9 @@ public class PjSipAorController {
   private final PjsipAorConverter pjsipAorConverter;
 
   @PostMapping(path = "/aors")
-  public ResponseEntity<String> create(@RequestBody AorRequest aorRequest){
-    pjsipAorService.save(aorRequest);
-    return new ResponseEntity<>(aorRequest.getContact(),HttpStatus.OK);
+  public ResponseEntity<PjSipAor> create(@RequestBody AorRequest aorRequest){
+    PjSipAor pjSipAor = pjsipAorService.save(aorRequest);
+    return new ResponseEntity<>(pjSipAor,HttpStatus.OK);
   }
 
   @PutMapping(path = "/aors/{id}")

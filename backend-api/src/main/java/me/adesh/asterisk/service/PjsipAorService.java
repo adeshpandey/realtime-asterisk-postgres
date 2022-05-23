@@ -22,7 +22,7 @@ public class PjsipAorService {
     pjSipAorRepository.deleteById(id);
   }
 
-  public void save(AorRequest aorRequest) {
+  public PjSipAor save(AorRequest aorRequest) {
     PjSipAor pjSipAor = PjSipAor.builder()
         .id(aorRequest.getId())
         .contact(aorRequest.getContact())
@@ -31,7 +31,7 @@ public class PjsipAorService {
         .removeExisting(aorRequest.getRemoveExisting())
         .removeUnavailable(aorRequest.getRemoveUnavailable())
         .build();
-    pjSipAorRepository.save(pjSipAor);
+    return pjSipAorRepository.save(pjSipAor);
   }
 
   public void update(String id, AorRequest aorRequest) {
