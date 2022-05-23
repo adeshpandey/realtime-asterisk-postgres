@@ -56,4 +56,51 @@ public class PjsipEndpointServiceTest {
     Mockito.verify(pjSipEndpointRepository).deleteById(Mockito.any());
   }
 
+  @Test
+  void when_edit_by_id_its_updated() {
+    String id = "123";
+
+    EndpointRequest endpointRequest = new EndpointRequest();
+    endpointRequest.setAuth(id);
+    endpointRequest.setId(id);
+    endpointRequest.setAors(id);
+
+    PjSipEndpoint pjSipEndpoint = PjSipEndpoint
+        .builder()
+        .id(id)
+        .aors(id)
+        .auth(id)
+        .build();
+
+    Mockito.when(pjSipEndpointRepository.existsById(Mockito.any())).thenReturn(true);
+    Mockito.when(pjSipEndpointRepository.save(Mockito.any(PjSipEndpoint.class))).thenReturn(pjSipEndpoint);
+
+    PjSipEndpoint pjSipEndpoint1 = pjsipEndpointService.updateById(id, endpointRequest);
+
+    assertThat(pjSipEndpoint1.getAuth()).isSameAs(pjSipEndpoint.getAuth());
+  }
+
+  @Test
+  void when_edit_by_id_but_id_is_invalid_not_updated() {
+    String id = "123";
+
+    EndpointRequest endpointRequest = new EndpointRequest();
+    endpointRequest.setAuth(id);
+    endpointRequest.setId(id);
+    endpointRequest.setAors(id);
+
+    PjSipEndpoint pjSipEndpoint = PjSipEndpoint
+        .builder()
+        .id(id)
+        .aors(id)
+        .auth(id)
+        .build();
+
+    Mockito.when(pjSipEndpointRepository.existsById(Mockito.any())).thenReturn(false);
+    Mockito.when(pjSipEndpointRepository.save(Mockito.any(PjSipEndpoint.class))).thenReturn(pjSipEndpoint);
+
+    PjSipEndpoint pjSipEndpoint1 = pjsipEndpointService.updateById(id, endpointRequest);
+
+    assertThat(pjSipEndpoint1).isSameAs(null);
+  }
 }

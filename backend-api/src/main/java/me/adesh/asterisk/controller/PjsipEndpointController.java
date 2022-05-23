@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,11 +30,15 @@ public class PjsipEndpointController {
     return new ResponseEntity<>(pjSipEndpoint, HttpStatus.OK);
   }
 
-//  @PutMapping(path = "/endpoints/{id}")
-//  public ResponseEntity<PjSipEndpoint> update(@PathVariable String id, @RequestBody EndpointRequest endpointRequest){
-//    PjsipEndpoint pjsipEndpoint = pjsipEndpointService.update( id, endpointRequest);
-//    return new ResponseEntity<>(pjsipEndpoint,HttpStatus.OK);
-//  }
+  @PutMapping(path = "/endpoints/{id}")
+  public ResponseEntity<PjSipEndpoint> update(@PathVariable String id,
+      @RequestBody EndpointRequest endpointRequest) {
+    PjSipEndpoint pjsipEndpoint = pjsipEndpointService.updateById(id, endpointRequest);
+    if (pjsipEndpoint == null) {
+      return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity<>(pjsipEndpoint, HttpStatus.OK);
+  }
 
   @GetMapping(path = "/endpoints")
   public ResponseEntity<List<PjsipEndpointDto>> get() {
@@ -41,7 +46,7 @@ public class PjsipEndpointController {
     return new ResponseEntity<>(pjsipEndpointConverter.entityToDto(pjSipEndpoints), HttpStatus.OK);
   }
 
-  @DeleteMapping(path="/endpoints/{id}")
+  @DeleteMapping(path = "/endpoints/{id}")
   ResponseEntity<String> delete(@PathVariable String id) {
     pjsipEndpointService.deleteById(id);
     return new ResponseEntity<>("Deleted successfully.", HttpStatus.OK);

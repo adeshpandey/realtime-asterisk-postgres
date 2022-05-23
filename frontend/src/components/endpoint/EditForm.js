@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Input, Modal, Select } from 'antd';
 import { useOktaAuth } from '@okta/okta-react';
-import { updateAuth } from '../../services/auths';
+import { updateEndpoint } from '../../services/endpoint';
 
 const EditForm = ({ item, onCancel, onEdit }) => {
     const { authState } = useOktaAuth()
@@ -31,7 +31,7 @@ const EditForm = ({ item, onCancel, onEdit }) => {
                         if (values.removeUnavailable != undefined) {
                             values.removeUnavailable = values.removeUnavailable ? 'yes' : 'no'
                         }
-                        updateAuth(item.id, values, authState.accessToken.accessToken).then(res => onEdit(res)).catch(err => onEdit(err.response))
+                        updateEndpoint(item.id, values, authState.accessToken.accessToken).then(res => onEdit(res)).catch(err => onEdit(err.response))
 
                     })
                     .catch(info => {
@@ -49,14 +49,7 @@ const EditForm = ({ item, onCancel, onEdit }) => {
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
             >
-                <Form.Item
-                    label="Id"
-                    name="id"
-                    rules={[{ required: true, message: 'Please input auth ID!' }]}
-                >
-                    <Input />
-                </Form.Item>
-
+               
                 <Form.Item
                     label="Auth"
                     name="auth"

@@ -30,4 +30,14 @@ public class PjsipEndpointService {
     pjSipEndpointRepository.deleteById(id);
     return "SUCCESS";
   }
+
+  public PjSipEndpoint updateById(String id, EndpointRequest endpointRequest) {
+    if (pjSipEndpointRepository.existsById(id)) {
+      PjSipEndpoint pjSipEndpoint = pjSipEndpointRepository.getById(id);
+      pjSipEndpoint.setAuth(endpointRequest.getAuth());
+      pjSipEndpoint.setAors(endpointRequest.getAors());
+      return pjSipEndpointRepository.save(pjSipEndpoint);
+    }
+    return null;
+  }
 }

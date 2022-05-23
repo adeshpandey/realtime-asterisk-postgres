@@ -4,6 +4,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -175,4 +176,70 @@ public class PjSipEndpointControllerTest {
         )
         .andExpect(status().isOk());
   }
+
+  @Test
+  void when_update_without_auth_it_should_return_401() throws Exception {
+    String id = "123";
+    EndpointRequest endpointRequest = new EndpointRequest();
+    endpointRequest.setAors("123");
+    endpointRequest.setAuth("123");
+
+    Mockito.when(pjsipEndpointService.updateById(id, endpointRequest))
+        .thenReturn(null);
+
+    mockMvc.perform(
+            put("/endpoints/" + id)
+                .content(objectMapper.writeValueAsBytes(endpointRequest))
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+        .andExpect(status().is4xxClientError());
+  }
+
+  @Test
+  void when_update_with_auth_but_invalid_id_it_should_return_400() throws Exception {
+    String id = "123";
+    EndpointRequest endpointRequest = new EndpointRequest();
+    endpointRequest.setAors("123");
+    endpointRequest.setAuth("123");
+
+    Mockito.when(pjsipEndpointService.updateById(id, endpointRequest))
+        .thenReturn(null);
+
+    mockMvc.perform(
+            put("/endpoints/" + id)
+                .content(objectMapper.writeValueAsBytes(endpointRequest))
+                .with(jwt())
+                .contentType(MediaType.APPLICATION_JSON)
+
+        )
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  void when_update_with_auth_but_valid_id_it_should_return_success() throws Exception {
+    String id = "123";
+    EndpointRequest endpointRequest = new EndpointRequest();
+    endpointRequest.setAors("123");
+    endpointRequest.setAuth("123");
+
+    PjSipEndpoint pjSipEndpoint = PjSipEndpoint.builder()
+        .id(id)
+        .aors(id)
+        .auth(id)
+        .build();
+
+    Mockito.when(pjsipEndpointService.updateById(Mockito.any(), Mockito.any()))
+        .thenReturn(pjSipEndpoint);
+
+    mockMvc.perform(
+            put("/endpoints/" + id)
+                .content(objectMapper.writeValueAsBytes(endpointRequest))
+                .with(jwt())
+                .contentType(MediaType.APPLICATION_JSON)
+
+        )
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id").value(id));
+  }
+
 }
