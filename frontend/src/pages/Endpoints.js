@@ -1,15 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 import { deleteEndpoint } from '../services/endpoint';
 import { Button, notification, Affix } from 'antd';
 import EndpointList from '../components/endpoint/EndpointList';
 import { PlusOutlined } from '@ant-design/icons';
 import AddForm from '../components/endpoint/AddForm';
+import { getAors } from '../services/aor';
+import { getAuths } from '../services/auths';
 
 const Endpoints = () => {
     const { authState } = useOktaAuth()
     const [showForm, setShowForm] = useState(false);
     const [refreshList, setRefreshList] = useState(false);
+
+    const [authList,setAuthList] = useState([]);
+    const [aorList,setAorList] = useState([]);
+
+    useEffect(() => {
+        
+        getAors(authState.accessToken.accessToken).then(res => setAorList(res.data)).catch(err => console.log(err))
+        getAuths(authState.accessToken.accessToken).then(res => setAuthList(res.data)).catch(err => console.log(err))
+    
+    }, [])
+    
 
     function onDelete(id) {
         deleteEndpoint(id, authState.accessToken.accessToken).then(res => {
@@ -68,7 +81,7 @@ const Endpoints = () => {
                 <PlusOutlined />
             </Button>
         </Affix>
-        <AddForm showForm={showForm} onAdd={onAdd} onCancel={status => setShowForm(status)} />
+        <AddForm authList={authList} aorList={aorList} showForm={showForm} onAdd={onAdd} onCancel={status => setShowForm(status)} />
     </div>)
 }
 export default Endpoints;

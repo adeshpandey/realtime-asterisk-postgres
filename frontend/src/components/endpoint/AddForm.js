@@ -1,9 +1,11 @@
 import React from 'react';
-import { Form, Input, Checkbox, Modal } from 'antd';
+import { Form, Input, Checkbox, Modal, Select } from 'antd';
 import { useOktaAuth } from '@okta/okta-react';
 import { addEndpoint } from '../../services/endpoint';
 
-const AddForm = ({ showForm, onCancel, onAdd }) => {
+const { Option } = Select;
+
+const AddForm = ({ showForm, onCancel, onAdd, authList, aorList }) => {
     const { authState } = useOktaAuth()
 
     const onFinish = (values) => {
@@ -32,7 +34,7 @@ const AddForm = ({ showForm, onCancel, onAdd }) => {
                             values.removeUnavailable = values.removeUnavailable ? 'yes' : 'no'
                         }
                         addEndpoint(values, authState.accessToken.accessToken).then(res => onAdd(res)).catch(err => onAdd(err.response))
-                        
+
                     })
                     .catch(info => {
                         console.log('Validate Failed:', info);
@@ -44,7 +46,7 @@ const AddForm = ({ showForm, onCancel, onAdd }) => {
                 name="basic"
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}
-                initialValues={{authType: 'userpass'}}
+                initialValues={{ authType: 'userpass' }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
@@ -61,14 +63,18 @@ const AddForm = ({ showForm, onCancel, onAdd }) => {
                     label="Auth"
                     name="auth"
                 >
-                <Input />
+                    <Select>
+                        {authList.map(v => <Option key={v.id}>{v.id}</Option>)}
+                    </Select>
                 </Form.Item>
 
                 <Form.Item
                     label="Aors"
                     name="aors"
                 >
-                    <Input />
+                    <Select mode="multiple">
+                        {aorList.map(v => <Option key={v.id}>{v.id}</Option>)}
+                    </Select>
                 </Form.Item>
             </Form>
         </Modal>
