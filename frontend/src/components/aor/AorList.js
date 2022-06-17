@@ -48,13 +48,13 @@ const AorList = ({ onDelete, refresh }) => {
         {
             title: 'Actions',
             render: (text, record) => {
-                return (<>
+                return (<Space>
                     <Popconfirm title="Delete?" onConfirm={() => onDelete(record.id)}>
-                        <Button>Delete</Button>
+                        <Button danger>Delete</Button>
                     </Popconfirm>
-                    <Space />
-                    <Button onClick={() => setEditItem(record)}>Edit</Button>
-                </>
+                    
+                    <Button type="primary" onClick={() => setEditItem(record)}>Edit</Button>
+                </Space>
                 );
             },
         },
