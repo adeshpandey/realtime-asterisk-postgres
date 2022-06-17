@@ -4,7 +4,7 @@ import { Button, Popconfirm, Table, Space } from 'antd';
 import EditForm from './EditForm';
 import { getEndpoints } from '../../services/endpoint';
 
-const EndpointList = ({ onDelete, refresh }) => {
+const EndpointList = ({ onDelete, refresh, authList, aorList }) => {
     const { authState } = useOktaAuth()
     const [endpoints, setEndpoints] = useState();
     const [editItem, setEditItem] = useState(null);
@@ -55,7 +55,7 @@ const EndpointList = ({ onDelete, refresh }) => {
     return (<>
 
         <Table dataSource={endpoints} columns={columns} rowKey="id" />
-        {editItem && <EditForm item={editItem} onEdit={onEdit} onCancel={status => setEditItem(null)} />}
+        {editItem && <EditForm authList={authList} aorList={aorList} item={editItem} onEdit={onEdit} onCancel={status => setEditItem(null)} />}
     </>)
 }
 export default EndpointList;

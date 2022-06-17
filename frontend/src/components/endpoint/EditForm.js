@@ -3,7 +3,9 @@ import { Form, Input, Modal, Select } from 'antd';
 import { useOktaAuth } from '@okta/okta-react';
 import { updateEndpoint } from '../../services/endpoint';
 
-const EditForm = ({ item, onCancel, onEdit }) => {
+const {Option} = Select;
+
+const EditForm = ({ item, onCancel, onEdit, authList, aorList }) => {
     const { authState } = useOktaAuth()
 
     const onFinish = (values) => {
@@ -54,14 +56,18 @@ const EditForm = ({ item, onCancel, onEdit }) => {
                     label="Auth"
                     name="auth"
                 >
-                <Input />
+                <Select >
+                    {authList.map(v => <Option key={v.id}>{v.id}</Option>)}
+                </Select>
                 </Form.Item>
 
                 <Form.Item
                     label="Aors"
                     name="aors"
                 >
-                    <Input />
+                    <Select mode="multiple">
+                        {aorList.map(v => <Option key={v.id}>{v.id}</Option>)}
+                    </Select>
                 </Form.Item>
 
             </Form>

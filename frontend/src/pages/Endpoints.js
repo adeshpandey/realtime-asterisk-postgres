@@ -75,7 +75,7 @@ const Endpoints = () => {
 
 
     return (<div>
-        <EndpointList refresh={refreshList} onDelete={onDelete} />
+        <EndpointList authList={authList} aorList={aorList} refresh={refreshList} onDelete={onDelete} />
         <Affix style={{ position: 'fixed', bottom: 10, right: 10 }}>
             <Button size="large" shape='circle' type="primary" onClick={() => setShowForm(true)}>
                 <PlusOutlined />
