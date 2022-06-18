@@ -24,3 +24,5 @@
   switch => Realtime/context_name@extensions
   ```
   then add extensions from the front-end with above context
+
+  ###### * Note: Extensions may not work until you alter the extensions table to use priority as varchar.(Asterisk odbc for postgres throws error)
