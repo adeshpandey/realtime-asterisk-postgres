@@ -2,8 +2,8 @@ spring:
   datasource:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://${POSTGRES_HOST:127.0.0.1}:${POSTGRES_PORT:15432}/${POSTGRES_DATABASE:asterisk}
-    username: ${POSTGRES_USER:postgres-user}
-    password: ${POSTGRES_PASSWORD:postgres-pass}
+    username: ${POSTGRES_USER:asterisk}
+    password: ${POSTGRES_PASSWORD:asterisk}
     tomcat:
       validation-query: SELECT 1
       test-while-idle: true
@@ -26,8 +26,8 @@ server:
     context-path: /api/v1/
 okta:
   oauth2:
-    issuer: https://${OKTA_HOST_NAME}.okta.com/oauth2/default
-    client-id: ${OKTA_BACKEND_CLIENT_ID}
-    client-secret: ${OKTA_BACKEND_CLIENT_SECRET}
+    issuer: https://${OKTA_HOST_NAME:dev-96574323}.okta.com/oauth2/default
+    client-id: ${OKTA_BACKEND_CLIENT_ID:0oa547oumsDb0W8Xa5d7}
+    client-secret: ${OKTA_BACKEND_CLIENT_SECRET:WrArMLNagAog2H07tbFVYaWYdToPo8ci61yvl4A9}
     scopes: openid
     roles-claim: groups

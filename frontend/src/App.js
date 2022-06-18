@@ -16,9 +16,10 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined
 } from '@ant-design/icons';
+import Extensions from './pages/Extensions';
 
 const oktaAuth = new OktaAuth({
-  issuer: `https://${process.env.REACT_APP_OKTA_HOST_NAME}.okta.com/oauth2/default`,
+  issuer: `https://${process.env.REACT_APP_OKTA_HOST_NAME}/oauth2/default`,
   clientId: process.env.REACT_APP_OKTA_FRONTEND_CLIENT_ID,
   redirectUri: window.location.origin + '/login/callback'
 });
@@ -36,6 +37,7 @@ function App() {
       <SecureRoute path='/aors' component={Aors} />
       <SecureRoute path='/auths' component={Auths} />
       <SecureRoute path='/endpoints' component={Endpoints} />
+      <SecureRoute path='/extensions' component={Extensions} />
       <Route path='/login/callback' component={LoginCallback} />
     </Security>
   );

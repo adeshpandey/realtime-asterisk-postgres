@@ -1,10 +1,11 @@
 import {Layout, Menu} from "antd";
-import { useState } from "react";
 import {Link} from 'react-router-dom'
 import {
     UserOutlined,
     MailOutlined,
-    KeyOutlined
+    KeyOutlined,
+    AccountBookOutlined,
+    NumberOutlined
   } from '@ant-design/icons';
 
 export default function({collapsed}){
@@ -31,6 +32,11 @@ export default function({collapsed}){
               key: '3',
               icon: <UserOutlined />,
               label: (<Link to="/endpoints">Endpoints</Link>)
+            },
+            {
+              key: '4',
+              icon: <NumberOutlined />,
+              label: (<Link to="/extensions">Extensions</Link>)
             },
           ]}
         />

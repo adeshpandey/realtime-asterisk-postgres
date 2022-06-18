@@ -25,22 +25,22 @@ services:
     ports:
       - 3000:3000
     
-  backend:
-    build: ./backend-api
-    volumes:
-      - ./backend-api/target/asterisk-backend-api-0.0.1-SNAPSHOT.jar:/app/asterisk-backend-api.jar
-    environment:
-      OKTA_HOST_NAME: $OKTA_HOST_NAME
-      OKTA_BACKEND_CLIENT_ID: $OKTA_BACKEND_CLIENT_ID
-      OKTA_BACKEND_CLIENT_SECRET: $OKTA_BACKEND_CLIENT_SECRET
-      POSTGRES_HOST: $POSTGRESQL_HOST 
-      POSTGRES_PORT: $POSTGRESQL_PORT 
-      POSTGRES_DATABASE: $POSTGRESQL_DATABASE
-      POSTGRES_USERNAME: $POSTGRESQL_USERNAME
-      POSTGRES_PASSWORD: $POSTGRESQL_PASSWORD
-      LOCAL_DEV_PORT: 8080
-    ports:
-      - 8080:8080
+  # backend:
+  #   build: ./backend-api
+  #   volumes:
+  #     - ./backend-api/target/asterisk-backend-api-0.0.1-SNAPSHOT.jar:/app/asterisk-backend-api.jar
+  #   environment:
+  #     OKTA_HOST_NAME: $OKTA_HOST_NAME
+  #     OKTA_BACKEND_CLIENT_ID: $OKTA_BACKEND_CLIENT_ID
+  #     OKTA_BACKEND_CLIENT_SECRET: $OKTA_BACKEND_CLIENT_SECRET
+  #     POSTGRES_HOST: $POSTGRESQL_HOST 
+  #     POSTGRES_PORT: $POSTGRESQL_PORT 
+  #     POSTGRES_DATABASE: $POSTGRESQL_DATABASE
+  #     POSTGRES_USERNAME: $POSTGRESQL_USERNAME
+  #     POSTGRES_PASSWORD: $POSTGRESQL_PASSWORD
+  #     LOCAL_DEV_PORT: 8080
+  #   ports:
+  #     - 8080:8080
 
   asterisk:
     build: .
