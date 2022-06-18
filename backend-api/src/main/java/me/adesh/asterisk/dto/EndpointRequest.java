@@ -9,6 +9,8 @@ public class EndpointRequest {
 
   private String id;
 
+  private String context;
+
   private String auth;
 
   private String[] aors;

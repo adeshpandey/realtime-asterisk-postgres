@@ -10,7 +10,13 @@ public class PjsipEndpointDto {
 
   private String id;
 
+  private String context;
+
   private String auth;
 
   private String aors;
+
+  public String[] getAors(){
+    return aors.split(",");
+  }
 }

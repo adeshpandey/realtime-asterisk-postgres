@@ -14,6 +14,7 @@ public class PjsipEndpointConverter {
   public PjsipEndpointDto entityToDto(PjSipEndpoint entity) {
     return PjsipEndpointDto.builder()
         .auth(entity.getAuth())
+        .context(entity.getContext())
         .aors(entity.getAors())
         .id(entity.getId())
         .build();
@@ -22,7 +23,7 @@ public class PjsipEndpointConverter {
   public PjSipEndpoint dtoToEntity(PjsipEndpointDto entity) {
     return PjSipEndpoint.builder()
         .auth(entity.getAuth())
-        .aors(entity.getAors())
+        .aors(String.join(",", entity.getAors()))
         .id(entity.getId())
         .build();
   }
