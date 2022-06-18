@@ -12,7 +12,8 @@ const Endpoints = () => {
     const { authState } = useOktaAuth()
     const [showForm, setShowForm] = useState(false);
     const [refreshList, setRefreshList] = useState(false);
-
+    const [initialValues, setInitialValues] = useState(null);
+    
     const [authList,setAuthList] = useState([]);
     const [aorList,setAorList] = useState([]);
 
@@ -73,15 +74,20 @@ const Endpoints = () => {
         }
     }
 
+    const onClone= record => {
+        setInitialValues(record)
+        setShowForm(true)
+    }
+
 
     return (<div>
-        <EndpointList authList={authList} aorList={aorList} refresh={refreshList} onDelete={onDelete} />
+        <EndpointList onClone={onClone} authList={authList} aorList={aorList} refresh={refreshList} onDelete={onDelete} />
         <Affix style={{ position: 'fixed', bottom: 10, right: 10 }}>
             <Button size="large" shape='circle' type="primary" onClick={() => setShowForm(true)}>
                 <PlusOutlined />
             </Button>
         </Affix>
-        <AddForm authList={authList} aorList={aorList} showForm={showForm} onAdd={onAdd} onCancel={status => setShowForm(status)} />
+        <AddForm initialValues={initialValues} authList={authList} aorList={aorList} showForm={showForm} onAdd={onAdd} onCancel={status => setShowForm(status)} />
     </div>)
 }
 export default Endpoints;

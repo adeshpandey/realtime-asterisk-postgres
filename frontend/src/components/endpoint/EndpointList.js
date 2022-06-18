@@ -4,7 +4,7 @@ import { Button, Popconfirm, Table, Space } from 'antd';
 import EditForm from './EditForm';
 import { getEndpoints } from '../../services/endpoint';
 
-const EndpointList = ({ onDelete, refresh, authList, aorList }) => {
+const EndpointList = ({ onDelete, refresh, authList, aorList, onClone }) => {
     const { authState } = useOktaAuth()
     const [endpoints, setEndpoints] = useState();
     const [editItem, setEditItem] = useState(null);
@@ -30,6 +30,10 @@ const EndpointList = ({ onDelete, refresh, authList, aorList }) => {
             dataIndex: 'id',
         },
         {
+            title: 'Context',
+            dataIndex: 'context',
+        },
+        {
             title: 'Auth',
             dataIndex: 'auth',
         },
@@ -46,6 +50,7 @@ const EndpointList = ({ onDelete, refresh, authList, aorList }) => {
                     </Popconfirm>
                     
                     <Button type='primary' onClick={() => setEditItem(record)}>Edit</Button>
+                    <Button type='primary' onClick={() => onClone(record)}>Clone</Button>
                 </Space>
                 );
             },

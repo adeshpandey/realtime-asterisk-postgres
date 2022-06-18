@@ -5,7 +5,7 @@ import { addEndpoint } from '../../services/endpoint';
 
 const { Option } = Select;
 
-const AddForm = ({ showForm, onCancel, onAdd, authList, aorList }) => {
+const AddForm = ({ showForm, onCancel, onAdd, authList, aorList, initialValues }) => {
     const { authState } = useOktaAuth()
 
     const onFinish = (values) => {
@@ -46,7 +46,7 @@ const AddForm = ({ showForm, onCancel, onAdd, authList, aorList }) => {
                 name="basic"
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}
-                initialValues={{ authType: 'userpass' }}
+                initialValues={initialValues}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
@@ -54,7 +54,15 @@ const AddForm = ({ showForm, onCancel, onAdd, authList, aorList }) => {
                 <Form.Item
                     label="Id"
                     name="id"
-                    rules={[{ required: true, message: 'Please input aor ID!' }]}
+                    rules={[{ required: true, message: 'Please input endpoint id!' }]}
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                    label="Context"
+                    name="context"
+                    rules={[{ required: true, message: 'Please input context!' }]}
                 >
                     <Input />
                 </Form.Item>
@@ -75,6 +83,13 @@ const AddForm = ({ showForm, onCancel, onAdd, authList, aorList }) => {
                     <Select mode="multiple">
                         {aorList.map(v => <Option key={v.id}>{v.id}</Option>)}
                     </Select>
+                </Form.Item>
+
+                <Form.Item
+                    label="Allow"
+                    name="allow"
+                >
+                    <Input />
                 </Form.Item>
             </Form>
         </Modal>

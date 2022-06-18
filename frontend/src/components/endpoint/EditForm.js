@@ -51,7 +51,14 @@ const EditForm = ({ item, onCancel, onEdit, authList, aorList }) => {
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
             >
-               
+               <Form.Item
+                    label="Context"
+                    name="context"
+                    rules={[{ required: true, message: 'Please input context!' }]}
+                >
+                    <Input />
+                </Form.Item>
+
                 <Form.Item
                     label="Auth"
                     name="auth"
@@ -70,6 +77,12 @@ const EditForm = ({ item, onCancel, onEdit, authList, aorList }) => {
                     </Select>
                 </Form.Item>
 
+                <Form.Item
+                    label="Allow"
+                    name="allow"
+                >
+                    <Input />
+                </Form.Item>
             </Form>
         </Modal>
     );
