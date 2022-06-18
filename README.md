@@ -15,3 +15,12 @@
 * Login to the sip softphone using your host IP
 * dial any number and enjoy!
 
+### How to manage extensions/dialplan?
+
+  Note: To manage dialplan you need to add one line like below in the extensions.conf
+
+  ```
+  [context_name]
+  switch => Realtime/context_name@extensions
+  ```
+  then add extensions from the front-end with above context
