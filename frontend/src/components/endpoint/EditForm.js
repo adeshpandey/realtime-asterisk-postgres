@@ -4,6 +4,7 @@ import { useOktaAuth } from '@okta/okta-react';
 import { updateEndpoint } from '../../services/endpoint';
 
 const {Option} = Select;
+const codecList = ["ulaw","alaw","wav","gsm","slin"];
 
 const EditForm = ({ item, onCancel, onEdit, authList, aorList }) => {
     const { authState } = useOktaAuth()
@@ -60,6 +61,14 @@ const EditForm = ({ item, onCancel, onEdit, authList, aorList }) => {
                 </Form.Item>
 
                 <Form.Item
+                    label="Allow"
+                    name="allow"
+                >
+                    <Select mode="multiple">
+                        {codecList.map(v => <Option key={v}>{v}</Option>)}
+                    </Select>
+                </Form.Item>
+                <Form.Item
                     label="Auth"
                     name="auth"
                 >
@@ -77,12 +86,6 @@ const EditForm = ({ item, onCancel, onEdit, authList, aorList }) => {
                     </Select>
                 </Form.Item>
 
-                <Form.Item
-                    label="Allow"
-                    name="allow"
-                >
-                    <Input />
-                </Form.Item>
             </Form>
         </Modal>
     );

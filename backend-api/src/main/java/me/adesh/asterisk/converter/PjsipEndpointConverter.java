@@ -16,6 +16,7 @@ public class PjsipEndpointConverter {
         .auth(entity.getAuth())
         .context(entity.getContext())
         .aors(entity.getAors())
+        .allow(entity.getAllow())
         .id(entity.getId())
         .build();
   }
@@ -24,6 +25,7 @@ public class PjsipEndpointConverter {
     return PjSipEndpoint.builder()
         .auth(entity.getAuth())
         .aors(String.join(",", entity.getAors()))
+        .allow(String.join(",", entity.getAllow()))
         .id(entity.getId())
         .build();
   }

@@ -34,6 +34,10 @@ const EndpointList = ({ onDelete, refresh, authList, aorList, onClone }) => {
             dataIndex: 'context',
         },
         {
+            title: 'Allowed Codecs',
+            dataIndex: 'allow',
+        },
+        {
             title: 'Auth',
             dataIndex: 'auth',
         },

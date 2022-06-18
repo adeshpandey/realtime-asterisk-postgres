@@ -15,4 +15,6 @@ public class EndpointRequest {
 
   private String[] aors;
 
+  private String[] allow;
+
 }

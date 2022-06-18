@@ -18,6 +18,7 @@ public class PjsipEndpointService {
         .id(endpointRequest.getId())
         .context(endpointRequest.getContext())
         .aors(String.join(",", endpointRequest.getAors()))
+        .allow(String.join(",", endpointRequest.getAllow()))
         .auth(endpointRequest.getAuth())
         .build();
     return pjSipEndpointRepository.save(pjSipEndpoint);
@@ -38,6 +39,7 @@ public class PjsipEndpointService {
       pjSipEndpoint.setAuth(endpointRequest.getAuth());
       pjSipEndpoint.setContext(endpointRequest.getContext());
       pjSipEndpoint.setAors(String.join(",", endpointRequest.getAors()));
+      pjSipEndpoint.setAllow(String.join(",", endpointRequest.getAllow()));
       return pjSipEndpointRepository.save(pjSipEndpoint);
     }
     return null;

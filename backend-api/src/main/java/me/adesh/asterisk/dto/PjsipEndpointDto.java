@@ -19,4 +19,11 @@ public class PjsipEndpointDto {
   public String[] getAors(){
     return aors.split(",");
   }
+
+  private String allow;
+
+  public String[] getAllow(){
+    String[] allowList = {};
+    return allow!=null ? allow.split(",") : allowList;
+  }
 }
