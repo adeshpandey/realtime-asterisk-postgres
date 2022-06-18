@@ -25,9 +25,10 @@ public class PjsipEndpointServiceTest {
 
   @Test
   void when_save_endpoint_it_should_return_endpoint() {
+    String[] aors = {"123"};
     EndpointRequest endpointRequest = new EndpointRequest();
     endpointRequest.setId("123");
-    endpointRequest.setAors("123");
+    endpointRequest.setAors(aors);
     endpointRequest.setAuth("123");
 
     Mockito.when(pjSipEndpointRepository.save(Mockito.any(PjSipEndpoint.class)))
@@ -59,11 +60,12 @@ public class PjsipEndpointServiceTest {
   @Test
   void when_edit_by_id_its_updated() {
     String id = "123";
+    String[] aors = {"123"};
 
     EndpointRequest endpointRequest = new EndpointRequest();
     endpointRequest.setAuth(id);
     endpointRequest.setId(id);
-    endpointRequest.setAors(id);
+    endpointRequest.setAors(aors);
 
     PjSipEndpoint pjSipEndpoint = PjSipEndpoint
         .builder()
@@ -73,6 +75,7 @@ public class PjsipEndpointServiceTest {
         .build();
 
     Mockito.when(pjSipEndpointRepository.existsById(Mockito.any())).thenReturn(true);
+    Mockito.when(pjSipEndpointRepository.getById(Mockito.any())).thenReturn(pjSipEndpoint);
     Mockito.when(pjSipEndpointRepository.save(Mockito.any(PjSipEndpoint.class))).thenReturn(pjSipEndpoint);
 
     PjSipEndpoint pjSipEndpoint1 = pjsipEndpointService.updateById(id, endpointRequest);
@@ -83,11 +86,12 @@ public class PjsipEndpointServiceTest {
   @Test
   void when_edit_by_id_but_id_is_invalid_not_updated() {
     String id = "123";
+    String[] aors = {"123"};
 
     EndpointRequest endpointRequest = new EndpointRequest();
     endpointRequest.setAuth(id);
     endpointRequest.setId(id);
-    endpointRequest.setAors(id);
+    endpointRequest.setAors(aors);
 
     PjSipEndpoint pjSipEndpoint = PjSipEndpoint
         .builder()

@@ -40,15 +40,17 @@ public class PjSipEndpointControllerTest {
 
   @Test
   void it_should_return_create_endpoint_401_if_not_auth() throws Exception {
+    String[] aors = {"123"};
+
     EndpointRequest endpointRequest = new EndpointRequest();
     endpointRequest.setId("123");
-    endpointRequest.setAors("123");
+    endpointRequest.setAors(aors);
     endpointRequest.setAuth("123");
 
     PjSipEndpoint pjSipEndpoint = PjSipEndpoint.builder()
         .id(endpointRequest.getId())
         .auth(endpointRequest.getAuth())
-        .aors(endpointRequest.getAors())
+        .aors(String.join(",", endpointRequest.getAors()))
         .build();
 
     Mockito.when(pjsipEndpointService.save(Mockito.any(EndpointRequest.class)))
@@ -64,15 +66,17 @@ public class PjSipEndpointControllerTest {
 
   @Test
   void it_should_return_created_aor() throws Exception {
+    String[] aors = {"123"};
+
     EndpointRequest endpointRequest = new EndpointRequest();
     endpointRequest.setId("123");
-    endpointRequest.setAors("123");
+    endpointRequest.setAors(aors);
     endpointRequest.setAuth("123");
 
     PjSipEndpoint pjSipEndpoint = PjSipEndpoint.builder()
         .id(endpointRequest.getId())
         .auth(endpointRequest.getAuth())
-        .aors(endpointRequest.getAors())
+        .aors(String.join(",", endpointRequest.getAors()))
         .build();
 
     Mockito.when(pjsipEndpointService.save(Mockito.any(EndpointRequest.class)))
@@ -91,15 +95,17 @@ public class PjSipEndpointControllerTest {
   @Test
   void it_should_return_list_of_endpoints_401_if_no_auth() throws Exception {
 
+    String[] aors = {"123"};
+
     EndpointRequest endpointRequest = new EndpointRequest();
     endpointRequest.setId("123");
-    endpointRequest.setAors("123");
+    endpointRequest.setAors(aors);
     endpointRequest.setAuth("123");
 
     PjSipEndpoint pjSipEndpoint = PjSipEndpoint.builder()
         .id(endpointRequest.getId())
         .auth(endpointRequest.getAuth())
-        .aors(endpointRequest.getAors())
+        .aors(String.join(",", endpointRequest.getAors()))
         .build();
 
     PjsipEndpointDto pjsipEndpointDto = PjsipEndpointDto.builder().id(pjSipEndpoint.getId())
@@ -121,16 +127,17 @@ public class PjSipEndpointControllerTest {
 
   @Test
   void it_should_return_list_of_aors() throws Exception {
+    String[] aors = {"123"};
 
     EndpointRequest endpointRequest = new EndpointRequest();
     endpointRequest.setId("123");
-    endpointRequest.setAors("123");
+    endpointRequest.setAors(aors);
     endpointRequest.setAuth("123");
 
     PjSipEndpoint pjSipEndpoint = PjSipEndpoint.builder()
         .id(endpointRequest.getId())
         .auth(endpointRequest.getAuth())
-        .aors(endpointRequest.getAors())
+        .aors(String.join(",", endpointRequest.getAors()))
         .build();
 
     PjsipEndpointDto pjsipEndpointDto = PjsipEndpointDto.builder().id(pjSipEndpoint.getId())
@@ -180,8 +187,10 @@ public class PjSipEndpointControllerTest {
   @Test
   void when_update_without_auth_it_should_return_401() throws Exception {
     String id = "123";
+    String[] aors = {"123"};
+
     EndpointRequest endpointRequest = new EndpointRequest();
-    endpointRequest.setAors("123");
+    endpointRequest.setAors(aors);
     endpointRequest.setAuth("123");
 
     Mockito.when(pjsipEndpointService.updateById(id, endpointRequest))
@@ -198,8 +207,10 @@ public class PjSipEndpointControllerTest {
   @Test
   void when_update_with_auth_but_invalid_id_it_should_return_400() throws Exception {
     String id = "123";
+    String[] aors = {"123"};
+
     EndpointRequest endpointRequest = new EndpointRequest();
-    endpointRequest.setAors("123");
+    endpointRequest.setAors(aors);
     endpointRequest.setAuth("123");
 
     Mockito.when(pjsipEndpointService.updateById(id, endpointRequest))
@@ -218,8 +229,10 @@ public class PjSipEndpointControllerTest {
   @Test
   void when_update_with_auth_but_valid_id_it_should_return_success() throws Exception {
     String id = "123";
+    String[] aors = {"123"};
+
     EndpointRequest endpointRequest = new EndpointRequest();
-    endpointRequest.setAors("123");
+    endpointRequest.setAors(aors);
     endpointRequest.setAuth("123");
 
     PjSipEndpoint pjSipEndpoint = PjSipEndpoint.builder()
